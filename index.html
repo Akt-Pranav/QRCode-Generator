@@ -117,40 +117,47 @@
   </script>
 
   <!-- Main Logic -->
-  <script>
-    const qrResult = document.getElementById("qrResult");
-    const qrImage = document.getElementById("qrImage");
-    const downloadBtn = document.getElementById("downloadBtn");
-    const loading = document.getElementById("loading");
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  const qrResult = document.getElementById("qrResult");
+  const qrImage = document.getElementById("qrImage");
+  const downloadBtn = document.getElementById("downloadBtn");
+  const loading = document.getElementById("loading");
 
-    async function generateQR() {
-      const data = document.getElementById("dataInput").value.trim();
-      if (!data) {
-        alert("Please enter something!");
-        return;
-      }
-
-      qrResult.classList.add("hidden");
-      loading.classList.remove("hidden");
-
-      const apiURL = `https://qrservice-z0zc.onrender.com/api/qr/generate?data=${encodeURIComponent(data)}`;
-      qrImage.src = apiURL;
-      downloadBtn.href = apiURL;
-
-      setTimeout(() => {
-        loading.classList.add("hidden");
-        qrResult.classList.remove("hidden");
-      }, 1200);
+  async function generateQR() {
+    const data = document.getElementById("dataInput").value.trim();
+    if (!data) {
+      alert("Please enter something!");
+      return;
     }
 
-    function copyToClipboard() {
-      const input = document.getElementById("dataInput");
-      navigator.clipboard.writeText(input.value).then(() => {
-        alert("Copied to clipboard!");
-      });
-    }
+    qrResult.classList.add("hidden");
+    loading.classList.remove("hidden");
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const apiURL = `https://qrservice-z0zc.onrender.com/api/qr/generate?data=${encodeURIComponent(data)}`;
+    qrImage.src = apiURL;
+    downloadBtn.href = apiURL;
+
+    setTimeout(() => {
+      loading.classList.add("hidden");
+      qrResult.classList.remove("hidden");
+    }, 1200);
+  }
+
+  function copyToClipboard() {
+    const input = document.getElementById("dataInput");
+    navigator.clipboard.writeText(input.value).then(() => {
+      alert("Copied to clipboard!");
+    });
+  }
+
+  window.generateQR = generateQR;
+  window.copyToClipboard = copyToClipboard;
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+});
+</script>
+
   </script>
 </body>
 </html>
