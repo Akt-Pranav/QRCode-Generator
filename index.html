@@ -120,6 +120,8 @@
 
   <!-- Main Logic -->
   <script>
+    window.addEventListener("DOMContentLoaded", () => {
+
     const qrResult = document.getElementById("qrResult");
     const qrImage = document.getElementById("qrImage");
     const downloadBtn = document.getElementById("downloadBtn");
@@ -146,6 +148,7 @@
     }
 
     document.getElementById("year").textContent = new Date().getFullYear();
+    });
   </script>
 </body>
 </html>
