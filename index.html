@@ -119,37 +119,47 @@
   </script>
 
   <!-- Main Logic -->
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
+ <script>
+  const qrResult = document.getElementById("qrResult");
+  const qrImage = document.getElementById("qrImage");
+  const downloadBtn = document.getElementById("downloadBtn");
+  const loading = document.getElementById("loading");
 
-    const qrResult = document.getElementById("qrResult");
-    const qrImage = document.getElementById("qrImage");
-    const downloadBtn = document.getElementById("downloadBtn");
-    const loading = document.getElementById("loading");
-
-    async function generateQR() {
-      const data = document.getElementById("dataInput").value.trim();
-      if (!data) {
-        alert("Please enter something!");
-        return;
-      }
-
-      qrResult.classList.add("hidden");
-      loading.classList.remove("hidden");
-
-      const apiURL = `https://qrservice-z0zc.onrender.com/api/qr/generate?data=${encodeURIComponent(data)}`;
-      qrImage.src = apiURL;
-      downloadBtn.href = apiURL;
-
-      setTimeout(() => {
-        loading.classList.add("hidden");
-        qrResult.classList.remove("hidden");
-      }, 1200);
+  function generateQR() {
+    const data = document.getElementById("dataInput").value.trim();
+    if (!data) {
+      alert("Please enter something!");
+      return;
     }
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    qrResult.classList.add("hidden");
+    loading.classList.remove("hidden");
+
+    const apiURL = `https://qrservice-z0zc.onrender.com/api/qr/generate?data=${encodeURIComponent(data)}`;
+    qrImage.src = apiURL;
+    downloadBtn.href = apiURL;
+
+    setTimeout(() => {
+      loading.classList.add("hidden");
+      qrResult.classList.remove("hidden");
+    }, 1200);
+  }
+
+  function copyToClipboard() {
+    const input = document.getElementById("dataInput");
+    navigator.clipboard.writeText(input.value).then(() => {
+      alert("Copied to clipboard!");
     });
-  </script>
+  }
+
+  window.generateQR = generateQR;
+  window.copyToClipboard = copyToClipboard;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("year").textContent = new Date().getFullYear();
+  });
+</script>
+
 </body>
 </html>
 
