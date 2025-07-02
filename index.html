@@ -1,10 +1,10 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>QR Code Generator | PKSA</title>
+  <link rel="icon" type="image/png" href="pksa-logo.png"/>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -39,6 +39,12 @@
 
   <!-- Particle background -->
   <div id="tsparticles" class="fixed top-0 left-0 w-full h-full z-0"></div>
+
+  <!-- Floating Logo Top-Left -->
+ <a href="/" class="fixed top-4 left-4 z-20">
+  <img src="pksa-logo.png" alt="PKSA Logo"
+       class="w-14 h-14 md:w-16 md:h-16 rounded-xl shadow-xl hover:scale-105 transition duration-300"/>
+</a>
 
   <main class="relative z-10 flex-grow flex items-center justify-center p-4">
     <div class="bg-gray-800/70 backdrop-blur-lg shadow-2xl rounded-3xl p-8 max-w-lg w-full fade-in border border-gray-700">
@@ -58,167 +64,6 @@
           placeholder="https://pksa.com"
           class="w-full px-4 py-3 pr-14 rounded-xl bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
-        <!-- <button
-          onclick="copyToClipboard()"
-          class="absolute right-2 top-9 text-sm bg-purple-700 text-white px-2 py-1 rounded-md hover:bg-purple-600 transition"
-        >
-          Copy
-        </button> -->
-      </div>
-
-      <button
-        onclick="generateQR()"
-        class="w-full bg-purple-700 text-white py-3 rounded-xl font-semibold transition transform hover:scale-105 hover:bg-purple-600 duration-300 shadow-md"
-      >
-        Generate QR Code
-      </button>
-
-      <div id="loading" class="mt-6 hidden">
-        <div class="loader"></div>
-        <p class="text-center mt-2 text-sm text-gray-400">Generating...</p>
-      </div>
-
-      <div id="qrResult" class="mt-6 text-center hidden">
-        <img id="qrImage" src="" alt="QR Code" class="mx-auto mb-4 rounded-xl shadow-lg border border-gray-600"/>
-        <a id="downloadBtn"
-           class="text-purple-400 font-semibold underline hover:text-purple-200 transition"
-           download="qr-code.png"
-           target="_blank"
-        >⬇️ Download QR</a>
-      </div>
-    </div>
-  </main>
-
-  <footer class="relative z-10 text-center text-gray-400 text-sm p-4 border-t border-gray-700">
-    © <span id="year"></span> <strong class="text-purple-400">PKSA</strong> 
-  </footer>
-
-  <!-- Particle Animation Script -->
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-  <script>
-    tsParticles.load("tsparticles", {
-      background: { color: { value: "#000000" } },
-      fpsLimit: 60,
-      interactivity: {
-        events: { onHover: { enable: true, mode: "repulse" }, resize: true },
-        modes: { repulse: { distance: 70, duration: 0.4 } }
-      },
-      particles: {
-        color: { value: "#a855f7" },
-        links: { color: "#a855f7", distance: 130, enable: true, opacity: 0.3, width: 1 },
-        collisions: { enable: false },
-        move: { direction: "none", enable: true, outModes: { default: "bounce" }, speed: 0.5 },
-        number: { value: 60, density: { enable: true, area: 800 } },
-        opacity: { value: 0.3 },
-        shape: { type: "circle" },
-        size: { value: { min: 1, max: 3 } }
-      },
-      detectRetina: true
-    });
-  </script>
-
-  <!-- Main Logic -->
-  <script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const qrResult = document.getElementById("qrResult");
-    const qrImage = document.getElementById("qrImage");
-    const downloadBtn = document.getElementById("downloadBtn");
-    const loading = document.getElementById("loading");
-
-    async function generateQR() {
-      const data = document.getElementById("dataInput").value.trim();
-      if (!data) {
-        alert("Please enter something!");
-        return;
-      }
-
-      qrResult.classList.add("hidden");
-      loading.classList.remove("hidden");
-
-      const apiURL = `https://qrservice-z0zc.onrender.com/api/qr/generate?data=${encodeURIComponent(data)}`;
-      qrImage.src = apiURL;
-      downloadBtn.href = apiURL;
-
-      setTimeout(() => {
-        loading.classList.add("hidden");
-        qrResult.classList.remove("hidden");
-      }, 1200);
-    }
-
-    window.generateQR = generateQR;
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-  });
-</script>
-
-</body>
-</html>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>QR Code Generator | PKSA</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-    }
-    .fade-in {
-      animation: fadeIn 1s ease-in;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    input::placeholder {
-      color: #9ca3af;
-    }
-    .loader {
-      border: 4px solid #2d3748;
-      border-top: 4px solid #a855f7;
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      animation: spin 0.8s linear infinite;
-      margin: auto;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
-</head>
-<body class="bg-gradient-to-br from-purple-950 via-gray-900 to-black text-white min-h-screen flex flex-col justify-between overflow-hidden">
-
-  <!-- Particle background -->
-  <div id="tsparticles" class="fixed top-0 left-0 w-full h-full z-0"></div>
-
-  <main class="relative z-10 flex-grow flex items-center justify-center p-4">
-    <div class="bg-gray-800/70 backdrop-blur-lg shadow-2xl rounded-3xl p-8 max-w-lg w-full fade-in border border-gray-700">
-      <h1 class="text-3xl font-bold text-center mb-6 text-purple-400 flex items-center justify-center gap-2">
-        <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" stroke-width="1.5"
-             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 3h5v5H3V3zM16 3h5v5h-5V3zM3 16h5v5H3v-5zM14 14h1v1h-1v-1zM17 14h1v1h-1v-1zM14 17h1v1h-1v-1zM17 17h1v1h-1v-1z" fill="currentColor"/>
-        </svg>
-        QR Code Generator
-      </h1>
-
-      <div class="mb-4 relative">
-        <label for="dataInput" class="block text-gray-300 font-medium mb-2">Enter URL or Text:</label>
-        <input
-          id="dataInput"
-          type="text"
-          placeholder="https://example.com"
-          class="w-full px-4 py-3 pr-14 rounded-xl bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-        <!-- <button
-          onclick="copyToClipboard()"
-          class="absolute right-2 top-9 text-sm bg-purple-700 text-white px-2 py-1 rounded-md hover:bg-purple-600 transition"
-        >
-          Copy
-        </button> -->
       </div>
 
       <button
@@ -299,15 +144,7 @@
       }, 1200);
     }
 
-    function copyToClipboard() {
-      const input = document.getElementById("dataInput");
-      navigator.clipboard.writeText(input.value).then(() => {
-        alert("Copied to clipboard!");
-      });
-    }
-
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
->>>>>>> 7f6858f3b2940a641baeead018a7834af6e3ed87
